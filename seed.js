@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import bcrypt from "bcryptjs";
 import User from "./models/User.js";
 import Group from "./models/Group.js";
 import Expense from "./models/Expenses.js";
@@ -19,12 +20,15 @@ const seedData = async () => {
     await Settlement.deleteMany({});
     console.log("Cleared existing data.");
 
-    // 1. Create 4 Users
+    // 1. Create 4 Users with encrypted passwords
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash("password123", salt);
+
     const users = await User.insertMany([
-      { username: "Alice", email: "alice@example.com", password: "password123" },
-      { username: "Bob", email: "bob@example.com", password: "password123" },
-      { username: "Charlie", email: "charlie@example.com", password: "password123" },
-      { username: "David", email: "david@example.com", password: "password123" },
+      { username: "Alice", email: "alice@example.com", password: hashedPassword },
+      { username: "Bob", email: "bob@example.com", password: hashedPassword },
+      { username: "Charlie", email: "charlie@example.com", password: hashedPassword },
+      { username: "David", email: "david@example.com", password: hashedPassword },
     ]);
     console.log("Inserted 4 users.");
 

@@ -9,10 +9,10 @@ const expenseSchema = new mongoose.Schema(
     description: { type: String },
     type: { type: String, enum: ['group', 'personal'], required: true },
     groupId: { type: mongoose.Schema.Types.ObjectId },
-    date: { type: Date }
-  },
-  { timestamps: true }
-);
+    date: { type: Date, default: Date.now }
+});
 
-export default mongoose.model('Expense', expenseSchema);
+const Expense = mongoose.models.Expense || mongoose.model('Expense', expenseSchema);
+
+export default Expense;
 

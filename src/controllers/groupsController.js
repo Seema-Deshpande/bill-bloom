@@ -5,13 +5,21 @@ import Expense from '../models/Expense.js';
 const isValidId = (id) => mongoose.isValidObjectId(id);
 
 export const create = async (req, res) => {
-  const { name, memberIds, createdBy } = req.body;
-  if (!name || !memberIds || !createdBy) {
-    return res.status(400).json({ message: 'name, memberIds and createdBy are required' });
+  const { name, memberIds } = req.body;
+  const createdBy = req.user.id;
+
+  if (!name || !memberIds) {
+    return res.status(400).json({ message: 'name and memberIds are required' });
   }
   if (!Array.isArray(memberIds)) {
     return res.status(400).json({ message: 'memberIds must be an array' });
   }
+  
+  // Ensure the creator is a member of the group
+  if (!memberIds.includes(createdBy)) {
+    memberIds.push(createdBy);
+  }
+
   if (memberIds.length < 2) {
     return res.status(400).json({ message: 'a group must have at least 2 members' });
   }
