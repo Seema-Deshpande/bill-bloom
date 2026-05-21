@@ -84,6 +84,7 @@ export const listByGroup = async (req, res) => {
   if (!isValidId(groupId)) return res.status(400).json({ message: 'invalid group id' });
   try {
     const expenses = await expenseService.getExpensesByGroup(groupId);
+    console.log(`Fetched`, expenses);
     return res.json({ message: 'group expenses fetched', expenses });
   } catch (err) {
     console.error(err);
@@ -92,8 +93,7 @@ export const listByGroup = async (req, res) => {
 };
 
 export const listPersonal = async (req, res) => {
-  const { userId } = req.params;
-  if (!isValidId(userId)) return res.status(400).json({ message: 'invalid user id' });
+  const userId = req.user._id;
   try {
     const expenses = await expenseService.getPersonalExpensesByUser(userId);
     return res.json({ message: 'personal expenses fetched', expenses });

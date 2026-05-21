@@ -4,12 +4,12 @@ import auth from '../middleware/auth.js';
 
 const router = express.Router();
 
-// Apply auth middleware to all expense routes
+// All expense routes require authentication
 router.use(auth);
 
 router.post('/', expenseController.create);
-router.get('/group/:groupId', expenseController.listByGroup);
-router.get('/personal/:userId', expenseController.listPersonal);
+router.get('/groups/:groupId', expenseController.listByGroup);
+router.get('/personal', expenseController.listPersonal);
 router.delete('/:expenseId', expenseController.remove);
 
 export default router;

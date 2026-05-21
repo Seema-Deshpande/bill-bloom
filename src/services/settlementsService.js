@@ -1,8 +1,6 @@
 import Expense from '../models/Expense.js';
 import { calculateSettlements } from '../utils/settlementEngine.js';
 import Settlement from '../models/Settlement.js';
-import Expense from '../models/Expense.js';
-import { calculateSettlements } from '../utils/settlementEngine.js';
 
 export const createSettlement = (data) => {
   const { fromUser, toUser, amount, groupId } = data;

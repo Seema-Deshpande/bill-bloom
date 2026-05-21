@@ -33,7 +33,7 @@ export const create = async (req, res) => {
 
 export const list = async (req, res) => {
   try {
-    const groups = await groupService.getAllGroups();
+    const groups = await groupService.getAllGroups(req.user._id);
     return res.json({ message: 'all groups fetched', groups });
   } catch (err) {
     return res.status(500).json({ message: 'server error' });

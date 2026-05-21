@@ -76,18 +76,7 @@ export const login = async (req, res) => {
   }
 };
 
-export const getMe = async (req, res) => {
-  try {
-    // The user object is attached to the request by the auth middleware
-    const user = req.user;
-    res.json({
-      id: user.id,
-      username: user.username,
-      email: user.email,
-      createdAt: user.createdAt,
-    });
-  } catch (err) {
-    console.error('GetMe error:', err);
-    res.status(500).json({ message: 'server error' });
-  }
-};
+export const me = async (req, res) => {
+  const { _id, username, email } = req.user;
+  return res.json({ user: { id: _id, username, email } });
+}

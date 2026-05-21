@@ -1,4 +1,4 @@
-const calculateSettlements = (expenses) => {
+export const calculateSettlements = (expenses) => {
   const balances = new Map();
 
   expenses.forEach(expense => {
@@ -58,6 +58,4 @@ const calculateSettlements = (expenses) => {
   return settlements;
 };
 
-module.exports = {
-  calculateSettlements,
-};
+

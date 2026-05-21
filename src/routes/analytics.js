@@ -1,14 +1,18 @@
 import express from 'express';
-import auth from '../middleware/auth.js';
 import * as analyticsController from '../controllers/analyticsController.js';
+import auth from '../middleware/auth.js';
 
 const router = express.Router();
 
-// Apply auth middleware to all analytics routes
+// All analytics routes require authentication
 router.use(auth);
 
-router.get('/personal', analyticsController.getPersonalAnalytics);
-router.get('/groups', analyticsController.getGroupAnalytics);
-router.get('/personal/categories', analyticsController.getCategoryBasedAnalytics);
+router.get('/personal', analyticsController.personalMonthly);
+router.get('/groups', analyticsController.groupSpending);
+
+// NOTE: this must be declared before /group/:groupId/categories to avoid
+// 'personal' being matched as a groupId param
+router.get('/personal/categories', analyticsController.personalCategories);
+router.get('/groups/:groupId/categories', analyticsController.groupCategories);
 
 export default router;
