@@ -57,7 +57,6 @@ export const create = async (req, res) => {
       });
       return res.status(201).json({ message: 'expense created', expense });
     } catch (err) {
-      console.error(err);
       return res.status(500).json({ message: 'server error' });
     }
   }
@@ -74,7 +73,6 @@ export const create = async (req, res) => {
     });
     return res.status(201).json({ message: 'expense created', expense });
   } catch (err) {
-    console.error(err);
     return res.status(500).json({ message: 'server error' });
   }
 };
@@ -84,10 +82,8 @@ export const listByGroup = async (req, res) => {
   if (!isValidId(groupId)) return res.status(400).json({ message: 'invalid group id' });
   try {
     const expenses = await expenseService.getExpensesByGroup(groupId);
-    console.log(`Fetched`, expenses);
     return res.json({ message: 'group expenses fetched', expenses });
   } catch (err) {
-    console.error(err);
     return res.status(500).json({ message: 'server error' });
   }
 };
@@ -98,7 +94,6 @@ export const listPersonal = async (req, res) => {
     const expenses = await expenseService.getPersonalExpensesByUser(userId);
     return res.json({ message: 'personal expenses fetched', expenses });
   } catch (err) {
-    console.error(err);
     return res.status(500).json({ message: 'server error' });
   }
 };
@@ -111,7 +106,6 @@ export const remove = async (req, res) => {
     if (!deleted) return res.status(404).json({ message: 'expense not found' });
     return res.json({ message: 'expense deleted' });
   } catch (err) {
-    console.error(err);
     return res.status(500).json({ message: 'server error' });
   }
 };

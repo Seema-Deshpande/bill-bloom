@@ -27,7 +27,11 @@ export const createGroup = async ({ name, memberIds, createdBy }) => {
     members: memberIds,
     createdBy
   });
-  return group.save();
+  const saved = await group.save();
+  return saved.populate([
+    { path: 'members', select: 'username email' },
+    { path: 'createdBy', select: 'username email' },
+  ]);
 };
 
 export const getAllGroups = () =>
