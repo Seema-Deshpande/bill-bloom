@@ -26,7 +26,7 @@ beforeAll(async () => {
   userId = user._id.toString();
 
   // Sign token with same secret the auth middleware uses
-  token = jwt.sign({ id: userId, username: 'testuser' }, 'your_jwt_secret', { expiresIn: '1h' });
+  token = jwt.sign({ id: userId, username: 'testuser' }, process.env.JWT_SECRET || 'yref00jt3434ecds0et_dssfckfgtey', { expiresIn: '1h' });
 });
 
 afterAll(async () => {

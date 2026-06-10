@@ -34,7 +34,7 @@ beforeAll(async () => {
   });
   groupId = group._id.toString();
 
-  token = jwt.sign({ id: userId, username: 'expenseuser' }, 'your_jwt_secret', { expiresIn: '1h' });
+  token = jwt.sign({ id: userId, username: 'expenseuser' }, process.env.JWT_SECRET || 'yref00jt3434ecds0et_dssfckfgtey', { expiresIn: '1h' });
 });
 
 afterAll(async () => {
